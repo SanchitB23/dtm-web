@@ -1,6 +1,7 @@
 'use client'
 import { ChakraProvider } from '@chakra-ui/react'
 import React from 'react'
+import { AnalyticsWrapper } from '@/components/Analytics'
 import Footer from '@/components/Footer'
 import NavBar from '@/components/Navbar'
 import theme from '@/utils/theme'
@@ -19,6 +20,7 @@ function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
 					{children}
 					<Footer />
 				</ChakraProvider>
+				<AnalyticsWrapper />
 			</body>
 		</html>
 	)
