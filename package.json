@@ -1,23 +1,59 @@
 {
-  "name": "dtm-web",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@next/font": "13.1.6",
-    "@types/node": "18.11.18",
-    "@types/react": "18.0.27",
-    "@types/react-dom": "18.0.10",
-    "eslint": "8.33.0",
-    "eslint-config-next": "13.1.6",
-    "next": "13.1.6",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "typescript": "4.9.4"
-  }
+	"name": "dtm-web",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"dev:turbo": "next dev --turbo",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint",
+		"lint:fix": "eslint --fix",
+		"format": "prettier --write . --ignore-unknown",
+		"prepare": "husky install",
+		"tsc:check": "tsc",
+		"format-all": "npm-run-all --parallel tsc:check lint lint:fix format"
+	},
+	"dependencies": {
+		"@babel/core": "^7.20.12",
+		"@chakra-ui/react": "^2.4.9",
+		"@emotion/react": "^11.10.5",
+		"@emotion/styled": "^11.10.5",
+		"@next/font": "13.1.6",
+		"framer-motion": "^8.5.5",
+		"next": "13.1.6",
+		"react": "18.2.0",
+		"react-dom": "18.2.0"
+	},
+	"devDependencies": {
+		"typescript": "4.9.4",
+		"@eslint/create-config": "^0.4.2",
+		"@next/eslint-plugin-next": "^13.1.6",
+		"@types/node": "18.11.18",
+		"@types/react": "18.0.27",
+		"@types/react-dom": "18.0.10",
+		"@typescript-eslint/eslint-plugin": "^5.0.0",
+		"@typescript-eslint/parser": "^5.49.0",
+		"eslint": "8.33.0",
+		"eslint-config-next": "13.1.6",
+		"eslint-config-prettier": "^8.6.0",
+		"eslint-config-standard-with-typescript": "^33.0.0",
+		"eslint-import-resolver-typescript": "^3.5.3",
+		"eslint-plugin-autofix": "^1.1.0",
+		"eslint-plugin-import": "^2.27.5",
+		"eslint-plugin-n": "^15.0.0",
+		"eslint-plugin-prettier": "^4.2.1",
+		"eslint-plugin-promise": "^6.0.0",
+		"eslint-plugin-react": "^7.32.2",
+		"eslint-plugin-react-hooks": "^4.6.0",
+		"eslint-plugin-unused-imports": "^2.0.0",
+		"husky": "^8.0.3",
+		"lint-staged": "^13.1.0",
+		"npm-run-all": "^4.1.5",
+		"prettier": "2.8.3"
+	},
+	"lint-staged": {
+		"*.{js,jsx,ts,tsx}": "eslint --fix ",
+		"*.{js,jsx,ts,tsx,css,md,html,json}": "prettier --cache --write"
+	}
 }
