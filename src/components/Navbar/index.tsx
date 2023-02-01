@@ -1,8 +1,10 @@
-import { Box, Button, Flex, Link, Stack, Text, useBoolean } from '@chakra-ui/react'
+/*
+import { useBoolean } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-
-import Logo from './Logo'
-import styles from './navbar.module.css'
+import Logo from '@/components/Navbar/Logo'
+import NavBarContainer from '@/components/Navbar/NavbarContainer'
+import MenuLinks from '@/components/Navbar/menuLinks'
+import MenuToggle from '@/components/Navbar/menuToggle'
 
 const NavBar = (props: JSX.IntrinsicAttributes): JSX.Element => {
 	const [isOpen, setIsOpen] = useBoolean()
@@ -39,91 +41,261 @@ const NavBar = (props: JSX.IntrinsicAttributes): JSX.Element => {
 	)
 }
 
-const CloseIcon = (): JSX.Element => (
-	<svg width='24' viewBox='0 0 18 18' xmlns='http://www.w3.org/2000/svg'>
-		<title>Close</title>
-		<path
-			fill='white'
-			d='M9.00023 7.58599L13.9502 2.63599L15.3642 4.04999L10.4142 8.99999L15.3642 13.95L13.9502 15.364L9.00023 10.414L4.05023 15.364L2.63623 13.95L7.58623 8.99999L2.63623 4.04999L4.05023 2.63599L9.00023 7.58599Z'
-		/>
-	</svg>
-)
+export default NavBar
+*/
 
-const MenuIcon = (): JSX.Element => (
-	<svg width='24px' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg' fill='white'>
-		<title>Menu</title>
-		<path d='M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z' />
-	</svg>
-)
+import { ChevronDownIcon, ChevronRightIcon, CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
+import {
+	Box,
+	Button,
+	chakra,
+	Collapse,
+	Flex,
+	Icon,
+	IconButton,
+	Link,
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+	Stack,
+	Text,
+	useColorModeValue,
+	useDisclosure,
+} from '@chakra-ui/react'
+import Image from 'next/image'
 
-const MenuToggle = ({ toggle, isOpen }: { toggle: () => void; isOpen: boolean }): JSX.Element => (
-	<Box display={{ base: 'block', md: 'none' }} onClick={toggle}>
-		{isOpen ? <CloseIcon /> : <MenuIcon />}
-	</Box>
-)
+const ChakraImg = chakra(Image)
+export default function WithSubnavigation(): JSX.Element {
+	const { isOpen, onToggle } = useDisclosure()
 
-const MenuItem = ({
-	children,
-	to = '/',
-	...rest
-}: JSX.IntrinsicAttributes & { children: React.ReactNode; to: string }): JSX.Element => (
-	<Link href={to}>
-		<Text display='block' {...rest}>
-			{children}
-		</Text>
+	return (
+		<Box>
+			<Flex
+				bg='transparent'
+				minH={'8vh'}
+				py={{ base: 2 }}
+				px={{ base: 4 }}
+				borderBottom={1}
+				borderStyle={'solid'}
+				borderColor={useColorModeValue('gray.200', 'gray.900')}
+				align={'center'}
+			>
+				<Flex flex={{ base: 1, md: 'auto' }} ml={{ base: -2 }} display={{ base: 'flex', md: 'none' }}>
+					<IconButton
+						onClick={onToggle}
+						icon={isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />}
+						variant={'ghost'}
+						aria-label={'Toggle Navigation'}
+					/>
+				</Flex>
+				<Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+					<ChakraImg src={require('@/assets/svg/toastmasters-logo-color.svg')} alt='Logo' w={20} />
+
+					<Flex display={{ base: 'none', md: 'flex' }} ml={10}>
+						<DesktopNav />
+					</Flex>
+				</Flex>
+
+				<Stack flex={{ base: 1, md: 0 }} justify={'flex-end'} direction={'row'} spacing={6}>
+					<Button as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} href={'#'}>
+						Sign In
+					</Button>
+					<Button
+						display={{ base: 'none', md: 'inline-flex' }}
+						fontSize={'sm'}
+						fontWeight={600}
+						color={'white'}
+						bg={'pink.400'}
+						_hover={{
+							bg: 'pink.300',
+						}}
+					>
+						Sign Up
+					</Button>
+				</Stack>
+			</Flex>
+
+			<Collapse in={isOpen} animateOpacity>
+				<MobileNav />
+			</Collapse>
+		</Box>
+	)
+}
+
+const DesktopNav = () => {
+	const linkColor = useColorModeValue('gray.600', 'gray.200')
+	const linkHoverColor = useColorModeValue('gray.800', 'white')
+	const popoverContentBgColor = useColorModeValue('white', 'gray.800')
+
+	return (
+		<Stack direction={'row'} spacing={4} alignItems={'center'}>
+			{NAV_ITEMS.map((navItem) => (
+				<Box key={navItem.label}>
+					<Popover trigger={'hover'} placement={'bottom-start'}>
+						<PopoverTrigger>
+							<Link
+								p={2}
+								href={navItem.href ?? '#'}
+								fontSize={'lg'}
+								fontWeight={500}
+								color={linkColor}
+								_hover={{
+									textDecoration: 'none',
+									color: linkHoverColor,
+								}}
+							>
+								{navItem.label}
+							</Link>
+						</PopoverTrigger>
+
+						{navItem.children != null && (
+							<PopoverContent border={0} boxShadow={'xl'} bg={popoverContentBgColor} p={4} rounded={'xl'} minW={'sm'}>
+								<Stack>
+									{navItem.children.map((child) => (
+										<DesktopSubNav key={child.label} {...child} />
+									))}
+								</Stack>
+							</PopoverContent>
+						)}
+					</Popover>
+				</Box>
+			))}
+		</Stack>
+	)
+}
+
+const DesktopSubNav = ({ label, href, subLabel }: NavItem): JSX.Element => (
+	<Link
+		href={href}
+		role={'group'}
+		display={'block'}
+		p={2}
+		rounded={'md'}
+		_hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}
+	>
+		<Stack direction={'row'} align={'center'}>
+			<Box>
+				<Text transition={'all .3s ease'} _groupHover={{ color: 'pink.400' }} fontWeight={500}>
+					{label}
+				</Text>
+				<Text fontSize={'sm'}>{subLabel}</Text>
+			</Box>
+			<Flex
+				transition={'all .3s ease'}
+				transform={'translateX(-10px)'}
+				opacity={0}
+				_groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
+				justify={'flex-end'}
+				align={'center'}
+				flex={1}
+			>
+				<Icon color={'pink.400'} w={5} h={5} as={ChevronRightIcon} />
+			</Flex>
+		</Stack>
 	</Link>
 )
 
-const MenuLinks = ({ isOpen }: { isOpen: boolean }): JSX.Element => (
-	<Box display={{ base: isOpen ? 'block' : 'none', md: 'block' }} flexBasis={{ base: '100%', md: 'auto' }}>
-		<Stack
-			spacing={8}
-			align='center'
-			justify={['center', 'space-between', 'flex-end', 'flex-end']}
-			direction={['column', 'row', 'row', 'row']}
-			pt={[4, 4, 0, 0]}
-		>
-			<MenuItem to='/'>Home</MenuItem>
-			<MenuItem to='/how'>How It works </MenuItem>
-			<MenuItem to='/features'>Features </MenuItem>
-			<MenuItem to='/pricing'>Pricing </MenuItem>
-			<MenuItem to='/signup'>
-				<Button
-					size='sm'
-					rounded='md'
-					color={['primary.500', 'primary.500', 'white', 'white']}
-					bg={['white', 'white', 'primary.500', 'primary.500']}
-					_hover={{
-						bg: ['primary.100', 'primary.100', 'primary.600', 'primary.600'],
-					}}
+const MobileNav = (): JSX.Element => (
+	<Stack bg={useColorModeValue('white', 'gray.800')} p={4} display={{ md: 'none' }}>
+		{NAV_ITEMS.map((navItem) => (
+			<MobileNavItem key={navItem.label} {...navItem} />
+		))}
+	</Stack>
+)
+
+const MobileNavItem = ({ label, children, href }: NavItem): JSX.Element => {
+	const { isOpen, onToggle } = useDisclosure()
+
+	return (
+		<Stack spacing={4} onClick={children != null ? onToggle : undefined}>
+			<Flex
+				py={2}
+				as={Link}
+				href={href ?? '#'}
+				justify={'space-between'}
+				align={'center'}
+				_hover={{
+					textDecoration: 'none',
+				}}
+			>
+				<Text fontWeight={600} color={useColorModeValue('gray.600', 'gray.200')}>
+					{label}
+				</Text>
+				{children != null && (
+					<Icon
+						as={ChevronDownIcon}
+						transition={'all .25s ease-in-out'}
+						transform={isOpen ? 'rotate(180deg)' : ''}
+						w={6}
+						h={6}
+					/>
+				)}
+			</Flex>
+
+			<Collapse in={isOpen} animateOpacity style={{ marginTop: '0!important' }}>
+				<Stack
+					mt={2}
+					pl={4}
+					borderLeft={1}
+					borderStyle={'solid'}
+					borderColor={useColorModeValue('gray.200', 'gray.700')}
+					align={'start'}
 				>
-					Create Account
-				</Button>
-			</MenuItem>
+					{children?.map((child) => (
+						<Link key={child.label} py={2} href={child.href}>
+							{child.label}
+						</Link>
+					))}
+				</Stack>
+			</Collapse>
 		</Stack>
-	</Box>
-)
+	)
+}
 
-const NavBarContainer = ({
-	children,
-	...props
-}: JSX.IntrinsicAttributes & { children: React.ReactNode; isShrunk: boolean }): JSX.Element => (
-	<Flex
-		as='nav'
-		align='center'
-		justify='space-between'
-		wrap='wrap'
-		w='100%'
-		mb={8}
-		p={4}
-		bg={['primary.500', 'primary.500', 'primary.100', 'primary.100']}
-		color={['white', 'white', 'primary.700', 'primary.700']}
-		backdropFilter='saturate(180%) blur(5px)'
-		className={styles.mobileNav}
-		{...props}
-	>
-		{children}
-	</Flex>
-)
+interface NavItem {
+	label: string
+	subLabel?: string
+	children?: NavItem[]
+	href?: string
+}
 
-export default NavBar
+const NAV_ITEMS: NavItem[] = [
+	{
+		label: 'Our Meetings',
+		children: [
+			{
+				label: 'Explore Design Work',
+				subLabel: 'Trending Design to inspire you',
+				href: '#',
+			},
+			{
+				label: 'New & Noteworthy',
+				subLabel: 'Up-and-coming Designers',
+				href: '#',
+			},
+		],
+	},
+	{
+		label: 'Gallery',
+		children: [
+			{
+				label: 'Job Board',
+				subLabel: 'Find your dream design job',
+				href: '#',
+			},
+			{
+				label: 'Freelance Projects',
+				subLabel: 'An exclusive list for contract work',
+				href: '#',
+			},
+		],
+	},
+	{
+		label: 'About',
+		href: '#',
+	},
+	{
+		label: 'Contact Us',
+		href: '#',
+	},
+]

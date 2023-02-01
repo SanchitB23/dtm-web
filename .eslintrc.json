@@ -24,6 +24,7 @@
 	},
 	"plugins": ["react", "react-hooks", "@typescript-eslint", "prettier", "autofix", "unused-imports"],
 	"rules": {
+		"@typescript-eslint/explicit-function-return-type": 0,
 		"react/jsx-filename-extension": [
 			"error",
 			{
@@ -34,7 +35,7 @@
 		"camelcase": "error",
 		"spaced-comment": "error",
 		"quotes": ["error", "single"],
-		"no-duplicate-imports": "warn",
+		//		"no-duplicate-imports": "warn",
 		"import/extensions": [
 			"error",
 			"ignorePackages",

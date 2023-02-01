@@ -1,6 +1,7 @@
 'use client'
-import { ChakraProvider, Container } from '@chakra-ui/react'
+import { ChakraProvider } from '@chakra-ui/react'
 import React from 'react'
+import Footer from '@/components/Footer'
 import NavBar from '@/components/Navbar'
 import theme from '@/utils/theme'
 
@@ -15,7 +16,8 @@ function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
 			<body>
 				<ChakraProvider theme={theme}>
 					<NavBar />
-					<Container as='main'>{children}</Container>
+					{children}
+					<Footer />
 				</ChakraProvider>
 			</body>
 		</html>
