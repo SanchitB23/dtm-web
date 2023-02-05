@@ -1,73 +1,35 @@
-/*
-import { useBoolean } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
-import Logo from '@/components/Navbar/Logo'
-import NavBarContainer from '@/components/Navbar/NavbarContainer'
-import MenuLinks from '@/components/Navbar/menuLinks'
-import MenuToggle from '@/components/Navbar/menuToggle'
-
-const NavBar = (props: JSX.IntrinsicAttributes): JSX.Element => {
-	const [isOpen, setIsOpen] = useBoolean()
-
-	const [isShrunk, setShrunk] = useState(false)
-
-	useEffect(() => {
-		const handler = (): void => {
-			setShrunk((isShrunk) => {
-				if (!isShrunk && (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20)) {
-					return true
-				}
-
-				if (isShrunk && document.body.scrollTop < 4 && document.documentElement.scrollTop < 4) {
-					return false
-				}
-
-				return isShrunk
-			})
-		}
-
-		window.addEventListener('scroll', handler)
-		return () => {
-			window.removeEventListener('scroll', handler)
-		}
-	}, [])
-
-	return (
-		<NavBarContainer {...props} isShrunk={isShrunk}>
-			<Logo color={['white', 'white', 'primary.500', 'primary.500']} isShrunk={isShrunk} />
-			<MenuToggle toggle={setIsOpen.toggle} isOpen={isOpen} />
-			<MenuLinks isOpen={isOpen} />
-		</NavBarContainer>
-	)
-}
-
-export default NavBar
-*/
-
-import { ChevronDownIcon, ChevronRightIcon, CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
+import { ChevronDownIcon, ChevronRightIcon, CloseIcon, HamburgerIcon, MoonIcon, SunIcon } from '@chakra-ui/icons'
 import {
+	Avatar,
 	Box,
 	Button,
-	chakra,
+	Center,
 	Collapse,
 	Flex,
 	Icon,
 	IconButton,
 	Link,
+	Menu,
+	MenuButton,
+	MenuDivider,
+	MenuItem,
+	MenuList,
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
 	Stack,
 	Text,
+	useColorMode,
 	useColorModeValue,
 	useDisclosure,
 } from '@chakra-ui/react'
-import Image from 'next/image'
+import { signIn, useSession } from 'next-auth/react'
+import Logo from '@/components/common/Logo'
 
-const ChakraImg = chakra(Image)
-export default function WithSubnavigation(): JSX.Element {
+export default function WithSubNavigation(): JSX.Element {
 	const { isOpen, onToggle } = useDisclosure()
-
+	const { colorMode, toggleColorMode } = useColorMode()
+	const { status } = useSession()
 	return (
 		<Box>
 			<Flex
@@ -89,29 +51,53 @@ export default function WithSubnavigation(): JSX.Element {
 					/>
 				</Flex>
 				<Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-					<ChakraImg src={require('@/assets/svg/toastmasters-logo-color.svg')} alt='Logo' w={20} />
-
+					<Logo />
 					<Flex display={{ base: 'none', md: 'flex' }} ml={10}>
 						<DesktopNav />
 					</Flex>
 				</Flex>
 
 				<Stack flex={{ base: 1, md: 0 }} justify={'flex-end'} direction={'row'} spacing={6}>
-					<Button as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} href={'#'}>
-						Sign In
-					</Button>
-					<Button
-						display={{ base: 'none', md: 'inline-flex' }}
-						fontSize={'sm'}
-						fontWeight={600}
-						color={'white'}
-						bg={'pink.400'}
-						_hover={{
-							bg: 'pink.300',
-						}}
-					>
-						Sign Up
-					</Button>
+					<Button onClick={toggleColorMode}>{colorMode === 'light' ? <MoonIcon /> : <SunIcon />}</Button>
+
+					{status === 'authenticated' ? (
+						<Menu>
+							<MenuButton as={Button} rounded={'full'} variant={'link'} cursor={'pointer'} minW={0}>
+								<Avatar size={'sm'} src={'https://avatars.dicebear.com/api/male/username.svg'} />
+							</MenuButton>
+							<MenuList alignItems={'center'}>
+								<br />
+								<Center>
+									<Avatar size={'2xl'} src={'https://avatars.dicebear.com/api/male/username.svg'} />
+								</Center>
+								<br />
+								<Center>
+									<p>Username</p>
+								</Center>
+								<br />
+								<MenuDivider />
+								<MenuItem>Your Servers</MenuItem>
+								<MenuItem>Account Settings</MenuItem>
+								<MenuItem>Logout</MenuItem>
+							</MenuList>
+						</Menu>
+					) : (
+						<Button
+							display={{ base: 'none', md: 'inline-flex' }}
+							fontSize={'sm'}
+							fontWeight={600}
+							color={'white'}
+							bg={'pink.400'}
+							_hover={{
+								bg: 'pink.300',
+							}}
+							onClick={() => {
+								void signIn()
+							}}
+						>
+							Member Login
+						</Button>
+					)}
 				</Stack>
 			</Flex>
 
@@ -296,6 +282,6 @@ const NAV_ITEMS: NavItem[] = [
 	},
 	{
 		label: 'Contact Us',
-		href: '#',
+		href: '/TestPage',
 	},
 ]

@@ -1,7 +1,9 @@
 'use client'
-import PageProvider from '@/providers/PageProvider'
+import React from 'react'
+import Footer from '@/components/Footer'
+import NavBar from '@/components/Navbar'
 
-function RootLayout({ children }) {
+function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
 	return (
 		<html lang='en'>
 			{/*
@@ -10,7 +12,9 @@ function RootLayout({ children }) {
       */}
 			<head />
 			<body>
-				<PageProvider>{children}</PageProvider>
+				<NavBar />
+				{children}
+				<Footer />
 			</body>
 		</html>
 	)
