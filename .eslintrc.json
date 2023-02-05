@@ -54,14 +54,14 @@
 				"html": true
 			}
 		],
-		"autofix/no-unused-vars": [
-			"error",
-			{
-				"argsIgnorePattern": "^_",
-				"ignoreRestSiblings": true,
-				"destructuredArrayIgnorePattern": "^_"
-			}
-		],
+		//		"autofix/no-unused-vars": [
+		//			"warn",
+		//			{
+		//				"argsIgnorePattern": "^_",
+		//				"ignoreRestSiblings": true,
+		//				"destructuredArrayIgnorePattern": "^_"
+		//			}
+		//		],
 		"@typescript-eslint/consistent-type-imports": [
 			"error",
 			{

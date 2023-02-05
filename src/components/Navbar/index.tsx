@@ -278,10 +278,10 @@ const NAV_ITEMS: NavItem[] = [
 	},
 	{
 		label: 'About',
-		href: '#',
+		href: '/about',
 	},
 	{
 		label: 'Contact Us',
-		href: '/TestPage',
+		href: '/contact-us',
 	},
 ]

@@ -1,5 +1,6 @@
 import { Box, chakra, Container, Link, Stack, Text, useColorModeValue, VisuallyHidden } from '@chakra-ui/react'
-import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
+import NextLink from 'next/link'
+import { FaInstagram, FaWhatsapp, FaYoutube } from 'react-icons/fa'
 import LogoWord from '@/components/common/LogoWord'
 import type { ReactNode } from 'react'
 
@@ -31,10 +32,18 @@ export default function SmallCentered() {
 			<Container as={Stack} maxW={'6xl'} py={4} spacing={4} justify={'center'} align={'center'}>
 				<LogoWord w={44} />
 				<Stack direction={'row'} spacing={6}>
-					<Link href={'#'}>Home</Link>
-					<Link href={'#'}>About</Link>
-					<Link href={'#'}>Blog</Link>
-					<Link href={'#'}>Contact</Link>
+					<Link as={NextLink} href={'/'}>
+						Home
+					</Link>
+					<Link as={NextLink} href={'/about'}>
+						About
+					</Link>
+					<Link as={NextLink} href={'#'}>
+						Blog
+					</Link>
+					<Link as={NextLink} href={'/contact-us'}>
+						Contact
+					</Link>
 				</Stack>
 			</Container>
 
@@ -50,8 +59,8 @@ export default function SmallCentered() {
 				>
 					<Text>© {new Date().getFullYear()} DTM Official. All rights reserved</Text>
 					<Stack direction={'row'} spacing={6}>
-						<SocialButton label={'Twitter'} href={'#'}>
-							<FaTwitter />
+						<SocialButton label={'WhatsApp'} href={'#'}>
+							<FaWhatsapp />
 						</SocialButton>
 						<SocialButton label={'YouTube'} href={'#'}>
 							<FaYoutube />
