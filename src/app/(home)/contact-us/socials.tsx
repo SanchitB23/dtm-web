@@ -1,34 +1,32 @@
 import { HStack, IconButton } from '@chakra-ui/react'
+import NextLink from 'next/link'
 import React from 'react'
 import { FaInstagram, FaWhatsapp, FaYoutube } from 'react-icons/fa'
+import { instagramLink, whatsAppLink, youtubeLink } from '@/constants'
+import type { IconButtonProps } from '@chakra-ui/react'
+import type { LinkProps } from 'next/link'
 
 const Socials = () => (
 	<HStack mt={{ lg: 10, md: 10 }} spacing={5} px={5} alignItems='flex-start'>
-		<IconButton
-			aria-label='whatsapp'
-			variant='ghost'
-			size='lg'
-			isRound={true}
-			_hover={{ bg: '#0D74FF' }}
-			icon={<FaWhatsapp size='28px' />}
-		/>
-		<IconButton
-			aria-label='youtube'
-			variant='ghost'
-			size='lg'
-			isRound={true}
-			_hover={{ bg: '#0D74FF' }}
-			icon={<FaYoutube size='28px' />}
-		/>
-		<IconButton
-			aria-label='instagram'
-			variant='ghost'
-			size='lg'
-			isRound={true}
-			_hover={{ bg: '#0D74FF' }}
-			icon={<FaInstagram size='28px' />}
-		/>
+		<CustomIconButton aria-label='whatsapp' icon={<FaWhatsapp size='28px' />} href={whatsAppLink} />
+		<CustomIconButton aria-label='youtube' icon={<FaYoutube size='28px' />} href={youtubeLink} />
+		<CustomIconButton aria-label='instagram' icon={<FaInstagram size='28px' />} href={instagramLink} />
 	</HStack>
+)
+
+const CustomIconButton = (props: IconButtonProps & LinkProps) => (
+	<IconButton
+		{...props}
+		href={props.href}
+		aria-label='instagram'
+		variant='ghost'
+		size='lg'
+		isRound={true}
+		_hover={{ bg: '#0D74FF' }}
+		as={NextLink}
+		rel={'noopener noreferrer'}
+		target='_blank'
+	/>
 )
 
 export default Socials
