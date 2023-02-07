@@ -1,6 +1,6 @@
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
 import React, { Fragment } from 'react'
-import theme from '@/utils/theme'
+import theme from '@/lib/theme'
 
 function Provider({ children }) {
 	return (
