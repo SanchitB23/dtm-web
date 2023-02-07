@@ -22,19 +22,33 @@
 		},
 		"project": "tsconfig.json"
 	},
-	"plugins": ["react", "react-hooks", "@typescript-eslint", "prettier", "autofix", "unused-imports"],
+	"plugins": [
+		"react",
+		"react-hooks",
+		"@typescript-eslint",
+		"prettier",
+		"autofix",
+		"unused-imports"
+	],
 	"rules": {
 		"@typescript-eslint/explicit-function-return-type": 0,
+		"@typescript-eslint/no-dynamic-delete": "warn",
 		"react/jsx-filename-extension": [
 			"error",
 			{
-				"extensions": [".jsx", ".tsx"]
+				"extensions": [
+					".jsx",
+					".tsx"
+				]
 			}
 		],
 		"react/react-in-jsx-scope": "off",
 		"camelcase": "error",
 		"spaced-comment": "error",
-		"quotes": ["error", "single"],
+		"quotes": [
+			"error",
+			"single"
+		],
 		//		"no-duplicate-imports": "warn",
 		"import/extensions": [
 			"error",
@@ -46,7 +60,10 @@
 				"tsx": "never"
 			}
 		],
-		"arrow-body-style": ["error", "as-needed"],
+		"arrow-body-style": [
+			"error",
+			"as-needed"
+		],
 		"react/self-closing-comp": [
 			"error",
 			{
@@ -71,7 +88,15 @@
 		"import/order": [
 			"error",
 			{
-				"groups": ["builtin", "external", "parent", "sibling", "index", "object", "type"],
+				"groups": [
+					"builtin",
+					"external",
+					"parent",
+					"sibling",
+					"index",
+					"object",
+					"type"
+				],
 				"pathGroups": [
 					{
 						"pattern": "@/**/**",
@@ -87,7 +112,9 @@
 		"no-restricted-imports": [
 			"error",
 			{
-				"patterns": ["../"]
+				"patterns": [
+					"../"
+				]
 			}
 		],
 		"react-hooks/exhaustive-deps": "error"
@@ -95,7 +122,12 @@
 	"settings": {
 		"import/resolver": {
 			"node": {
-				"extensions": [".js", ".jsx", ".ts", ".tsx"]
+				"extensions": [
+					".js",
+					".jsx",
+					".ts",
+					".tsx"
+				]
 			}
 		}
 	}
