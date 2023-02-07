@@ -2,6 +2,7 @@ import { Box, chakra, Container, Link, Stack, Text, useColorModeValue, VisuallyH
 import NextLink from 'next/link'
 import { FaInstagram, FaWhatsapp, FaYoutube } from 'react-icons/fa'
 import LogoWord from '@/components/common/LogoWord'
+import { clubNameShort } from '@/constants'
 import type { ReactNode } from 'react'
 
 const SocialButton = ({ children, label, href }: { children: ReactNode; label: string; href: string }) => (
@@ -57,7 +58,9 @@ export default function SmallCentered() {
 					justify={{ base: 'center', md: 'space-between' }}
 					align={{ base: 'center', md: 'center' }}
 				>
-					<Text>© {new Date().getFullYear()} DTM Official. All rights reserved</Text>
+					<Text>
+						© {new Date().getFullYear()} {clubNameShort.toUpperCase()} Official. All rights reserved
+					</Text>
 					<Stack direction={'row'} spacing={6}>
 						<SocialButton label={'WhatsApp'} href={'#'}>
 							<FaWhatsapp />

@@ -32,7 +32,6 @@ export default function ContactUs() {
 				backgroundAttachment: 'fixed',
 			}}
 			id='contact'
-			maxW='full'
 		>
 			<Box borderRadius='lg' m={{ base: 5, md: 16, lg: 10 }} p={{ base: 1, lg: 16 }}>
 				{/* <Stack spacing={{ base: 4, md: 8, lg: 20 }} direction={{ base: 'column', md: 'row' }}> */}

@@ -64,5 +64,8 @@
 	"lint-staged": {
 		"*.{js,jsx,ts,tsx}": "eslint --fix ",
 		"*.{js,jsx,ts,tsx,css,md,html,json}": "prettier --cache --write"
+	},
+	"prisma": {
+		"schema": "./src/prisma/schema.prisma"
 	}
 }

@@ -23,6 +23,7 @@ import {
 	useColorModeValue,
 	useDisclosure,
 } from '@chakra-ui/react'
+import NextLink from 'next/link'
 import { signIn, useSession } from 'next-auth/react'
 import Logo from '@/components/common/Logo'
 
@@ -129,6 +130,7 @@ const DesktopNav = () => {
 									textDecoration: 'none',
 									color: linkHoverColor,
 								}}
+								as={NextLink}
 							>
 								{navItem.label}
 							</Link>
@@ -158,6 +160,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem): JSX.Element => (
 		p={2}
 		rounded={'md'}
 		_hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}
+		as={NextLink}
 	>
 		<Stack direction={'row'} align={'center'}>
 			<Box>
@@ -196,7 +199,7 @@ const MobileNavItem = ({ label, children, href }: NavItem): JSX.Element => {
 		<Stack spacing={4} onClick={children != null ? onToggle : undefined}>
 			<Flex
 				py={2}
-				as={Link}
+				as={NextLink}
 				href={href ?? '#'}
 				justify={'space-between'}
 				align={'center'}
@@ -228,7 +231,7 @@ const MobileNavItem = ({ label, children, href }: NavItem): JSX.Element => {
 					align={'start'}
 				>
 					{children?.map((child) => (
-						<Link key={child.label} py={2} href={child.href}>
+						<Link key={child.label} py={2} href={child.href} as={NextLink}>
 							{child.label}
 						</Link>
 					))}
