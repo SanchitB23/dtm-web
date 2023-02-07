@@ -6,7 +6,7 @@ import { instagramLink, whatsAppLink, youtubeLink } from '@/constants'
 import type { IconButtonProps } from '@chakra-ui/react'
 import type { LinkProps } from 'next/link'
 
-const Socials = () => (
+const SocialsComponent = () => (
 	<HStack mt={{ lg: 10, md: 10 }} spacing={5} px={5} alignItems='flex-start'>
 		<CustomIconButton aria-label='whatsapp' icon={<FaWhatsapp size='28px' />} href={whatsAppLink} />
 		<CustomIconButton aria-label='youtube' icon={<FaYoutube size='28px' />} href={youtubeLink} />
@@ -29,4 +29,4 @@ const CustomIconButton = (props: IconButtonProps & LinkProps) => (
 	/>
 )
 
-export default Socials
+export default SocialsComponent

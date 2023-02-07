@@ -2,7 +2,7 @@ import { MoonIcon, SunIcon } from '@chakra-ui/icons'
 import { Box, Button, Flex, Stack, useColorMode, useColorModeValue } from '@chakra-ui/react'
 import Logo from '@/components/common/Logo'
 
-export default function NavBar() {
+export default function NavbarComponent() {
 	const { colorMode, toggleColorMode } = useColorMode()
 	return (
 		<>

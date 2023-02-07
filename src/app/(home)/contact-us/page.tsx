@@ -1,21 +1,21 @@
 'use client'
 import { VStack, Wrap } from '@chakra-ui/react'
-import ContactInfo from './contactInfo'
-import Form from './form'
-import Socials from './socials'
-import Title from './title'
+import ContactInfoComponent from './contactInfo.component'
+import FormComponent from './form.component'
+import SocialsComponent from './socials.component'
+import TitleComponent from './title.component'
 
 export default function ContactUs() {
 	return (
 		<Wrap spacing={{ base: 20, sm: 3, md: 5, lg: 20 }}>
 			<VStack justifyContent={'space-between'}>
 				<VStack>
-					<Title />
-					<ContactInfo />
+					<TitleComponent />
+					<ContactInfoComponent />
 				</VStack>
-				<Socials />
+				<SocialsComponent />
 			</VStack>
-			<Form />
+			<FormComponent />
 		</Wrap>
 	)
 }

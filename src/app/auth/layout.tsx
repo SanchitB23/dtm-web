@@ -1,6 +1,6 @@
 'use client'
 import { Box, Flex, useColorModeValue } from '@chakra-ui/react'
-import NavBar from './navbar'
+import NavbarComponent from './navbar.component'
 
 export default function AuthLayout({ children }) {
 	return (
@@ -18,7 +18,7 @@ export default function AuthLayout({ children }) {
 						'radial-gradient(#45EBF7FF 1.35px, transparent 1.35px), radial-gradient(#45EBF7FF 1.35px, transparent 1.35px);'
 					)}
 				>
-					<NavBar />
+					<NavbarComponent />
 					<Flex align={'center'} justify={'center'} minH={'92vh'}>
 						{children}
 					</Flex>
