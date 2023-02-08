@@ -1,3 +1,4 @@
+'use client'
 import { ChevronDownIcon, ChevronRightIcon, CloseIcon, HamburgerIcon, MoonIcon, SunIcon } from '@chakra-ui/icons'
 import {
 	Avatar,
