@@ -1,3 +1,4 @@
+'use client'
 import { Box, chakra, Container, Link, Stack, Text, useColorModeValue, VisuallyHidden } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import { FaInstagram, FaWhatsapp, FaYoutube } from 'react-icons/fa'
