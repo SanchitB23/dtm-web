@@ -1,6 +1,5 @@
-import { API_ENDPOINTS, SESSION_STORAGE_KEYS } from '@/constants'
+import { SESSION_STORAGE_KEYS } from '@/constants'
 import ApiService from '@/services/api.service'
-import type { AxiosResponse } from 'axios'
 
 class AuthService extends ApiService {
 	/* Constructor and Init */
@@ -23,63 +22,62 @@ class AuthService extends ApiService {
 
 	/* Helper Functions */
 
-	login = async (loginData: LoginFormValues): Promise<AxiosResponse<LoginSuccessResponse | LoginFailureResponse>> =>
-		await this.apiClient
-			.post(`${API_VERSION.ONE}${API_ENDPOINTS.LoginWithEmail}`, loginData)
-			.then(async (res) => {
-				await this.createSession({ userId: res.data.user.id, token: res.data.token })
-				return res
-			})
-			.catch((error) => error.data)
+	/* 	login = async (loginData: LoginFormValues): Promise<AxiosResponse<LoginSuccessResponse | LoginFailureResponse>> =>
+      await this.apiClient
+        .post(`${API_VERSION.ONE}${API_ENDPOINTS.LoginWithEmail}`, loginData)
+        .then(async (res) => {
+          await this.createSession({ userId: res.data.user.id, token: res.data.token })
+          return res
+        })
+        .catch((error) => error.data) */
 
 	logout = async () => {
 		await this.destroySession()
-	}
-
-	currentUser = async () =>
-		await this.apiClient
-			.get(`${API_VERSION.ONE}${API_ENDPOINTS.CurrentUser}`)
-			.then((res) => ({
-				id: res.data.userId,
-				email: res.data.email,
-				userType: res.data.userType,
-			}))
-			.catch((reason) => reason.data)
-
-	signup = async (signupData: LoginFormValues): Promise<SignUpResponse> => {
-		try {
-			const res = await this.apiClient.post(`${API_VERSION.ONE}${API_ENDPOINTS.SignUpWithEmail}`, signupData)
-			return {
-				data: res.data, // @ts-expect-error
-				status: res.statusCode,
-			}
-		} catch (reason) {
-			return {
-				data: reason.data.message,
-				status: reason.data.statusCode,
-			}
-		}
-	}
-
-	createProfile = async (formData: FormData) => {
-		try {
-			const res = await this.apiClient.put(`${API_VERSION.ONE}${API_ENDPOINTS.CreateProfile}`, formData, {
-				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'multipart/form-data',
-				},
-			})
-			return {
-				data: res.data, // @ts-expect-error
-				status: res.statusCode,
-			}
-		} catch (reason) {
-			return {
-				data: reason.data.message,
-				status: reason.data.statusCode,
-			}
-		}
-	}
+	} /*
+    currentUser = async () =>
+      await this.apiClient
+        .get(`${API_VERSION.ONE}${API_ENDPOINTS.CurrentUser}`)
+        .then((res) => ({
+          id: res.data.userId,
+          email: res.data.email,
+          userType: res.data.userType,
+        }))
+        .catch((reason) => reason.data)
+  
+    signup = async (signupData: LoginFormValues): Promise<SignUpResponse> => {
+      try {
+        const res = await this.apiClient.post(`${API_VERSION.ONE}${API_ENDPOINTS.SignUpWithEmail}`, signupData)
+        return {
+          data: res.data, // @ts-expect-error
+          status: res.statusCode,
+        }
+      } catch (reason) {
+        return {
+          data: reason.data.message,
+          status: reason.data.statusCode,
+        }
+      }
+    }
+  
+    createProfile = async (formData: FormData) => {
+      try {
+        const res = await this.apiClient.put(`${API_VERSION.ONE}${API_ENDPOINTS.CreateProfile}`, formData, {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        return {
+          data: res.data, // @ts-expect-error
+          status: res.statusCode,
+        }
+      } catch (reason) {
+        return {
+          data: reason.data.message,
+          status: reason.data.statusCode,
+        }
+      }
+    } */
 
 	/* API Handlers */
 
