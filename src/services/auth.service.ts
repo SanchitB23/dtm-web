@@ -43,7 +43,7 @@ class AuthService extends ApiService {
           userType: res.data.userType,
         }))
         .catch((reason) => reason.data)
-  
+
     signup = async (signupData: LoginFormValues): Promise<SignUpResponse> => {
       try {
         const res = await this.apiClient.post(`${API_VERSION.ONE}${API_ENDPOINTS.SignUpWithEmail}`, signupData)
@@ -58,7 +58,7 @@ class AuthService extends ApiService {
         }
       }
     }
-  
+
     createProfile = async (formData: FormData) => {
       try {
         const res = await this.apiClient.put(`${API_VERSION.ONE}${API_ENDPOINTS.CreateProfile}`, formData, {
