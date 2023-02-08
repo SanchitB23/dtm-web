@@ -8,7 +8,7 @@ interface Props extends PropExtension {
 	label: string
 }
 
-const ContactInfoBtn = ({ children, leftIcon, label, ...props }: Props) => (
+const ContactInfoBtnComponent = ({ children, leftIcon, label, ...props }: Props) => (
 	<Tooltip label={label} closeOnClick={false} hasArrow>
 		<Button
 			px={2}
@@ -26,4 +26,4 @@ const ContactInfoBtn = ({ children, leftIcon, label, ...props }: Props) => (
 	</Tooltip>
 )
 
-export default ContactInfoBtn
+export default ContactInfoBtnComponent

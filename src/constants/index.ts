@@ -9,3 +9,6 @@ export const API_ENDPOINTS = {
 export const SESSION_STORAGE_KEYS = {
 	USER_TOKEN: 'USER_TOKEN',
 }
+export const whatsAppLink = '#'
+export const instagramLink = '#'
+export const youtubeLink = '#'
