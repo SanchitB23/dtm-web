@@ -10,12 +10,11 @@ import {
 	Input,
 	InputGroup,
 	InputRightElement,
-	Link,
 	Stack,
 	Text,
 	useColorModeValue,
 } from '@chakra-ui/react'
-import NextLink from 'next/link'
+import { signIn } from 'next-auth/react'
 import { useState } from 'react'
 
 export default function SignupCard() {
@@ -102,9 +101,15 @@ export default function SignupCard() {
 					<Stack pt={6}>
 						<Text align={'center'}>
 							Already a user?{' '}
-							<Link as={NextLink} color={'blue.400'} href={'/signin'}>
+							<Button
+								variant={'link'}
+								color={'blue.400'}
+								onClick={() => {
+									void signIn()
+								}}
+							>
 								Login
-							</Link>
+							</Button>
 						</Text>
 					</Stack>
 				</Stack>
