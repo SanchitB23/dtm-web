@@ -25,7 +25,7 @@ import {
 	useDisclosure,
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
-import { signIn, useSession } from 'next-auth/react'
+import { signIn, signOut, useSession } from 'next-auth/react'
 import Logo from '@/components/common/Logo'
 
 export default function WithSubNavigation(): JSX.Element {
@@ -80,7 +80,13 @@ export default function WithSubNavigation(): JSX.Element {
 								<MenuDivider />
 								<MenuItem>Your Servers</MenuItem>
 								<MenuItem>Account Settings</MenuItem>
-								<MenuItem>Logout</MenuItem>
+								<MenuItem
+									onClick={() => {
+										void signOut()
+									}}
+								>
+									Logout
+								</MenuItem>
 							</MenuList>
 						</Menu>
 					) : (
