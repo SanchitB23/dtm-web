@@ -1,8 +1,8 @@
 'use client'
 import { useQuery } from '@tanstack/react-query'
-import axios from 'axios'
+import tempService from '@/services/temp.service'
 
-const queryFn = async () => await axios.get('https://jsonplaceholder.typicode.com/posts').then((res) => res.data)
+const queryFn = async () => await tempService.getPosts()
 export default function SimpleCard() {
 	const { data } = useQuery({
 		queryKey: ['test'],

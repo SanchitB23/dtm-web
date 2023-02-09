@@ -27,7 +27,7 @@ const Layout = ({ children }) => (
 		}}
 		id='contact'
 	>
-		<Box borderRadius='lg' m={{ base: 5, md: 16, lg: 10 }} p={{ base: 1, lg: 16 }}>
+		<Box borderRadius='lg' m={{ base: 5, md: 16, lg: 10 }} p={{ base: 1, lg: 16 }} w={[null, null, null, '50%']}>
 			<Box
 				bg={useColorModeValue('#9DC4FB', '#02054B')}
 				borderRadius='lg'

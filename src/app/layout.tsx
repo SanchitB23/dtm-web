@@ -1,4 +1,3 @@
-'use client'
 import PageProvider from '@/providers/PageProvider'
 
 function RootLayout({ children }) {

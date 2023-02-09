@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { API_ENDPOINTS } from '@/constants'
-import type { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios'
+import type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios'
 
 class HttpService {
 	client: AxiosInstance
@@ -26,20 +26,16 @@ class HttpService {
 		}
 	}
 
-	handleErrorResponse = async (error: any) => {
-		try {
-			const { status } = error.response
-			switch (status) {
-				case 401:
-					this.unauthorizedCallback()
-					break
-				default:
-					break
-			}
-			return await Promise.reject(error.response)
-		} catch (e) {
-			return await Promise.reject(error)
+	handleErrorResponse = async (error) => {
+		const { status } = error as AxiosError
+		switch (status) {
+			case 401:
+				this.unauthorizedCallback()
+				break
+			default:
+				break
 		}
+		throw error
 	}
 
 	setUnauthorizedCallback(callback: () => void) {
