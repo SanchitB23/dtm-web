@@ -7,7 +7,7 @@ import TitleComponent from './title.component'
 
 export default function ContactUs() {
 	return (
-		<Wrap spacing={{ base: 20, sm: 3, md: 5, lg: 20 }}>
+		<Wrap spacing={{ base: 10, sm: 3, md: 5, lg: 20 }} justify={'center'}>
 			<VStack justifyContent={'space-between'}>
 				<VStack>
 					<TitleComponent />
