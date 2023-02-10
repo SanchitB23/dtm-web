@@ -1,5 +1,8 @@
-import { SESSION_STORAGE_KEYS } from '@/constants'
+import { signOut } from 'next-auth/react'
+import { API_ENDPOINTS } from '@/constants'
 import ApiService from '@/services/api.service'
+import type { ILoginData } from '@/types/auth'
+import type { AxiosResponse } from 'axios'
 
 class AuthService extends ApiService {
 	/* Constructor and Init */
@@ -10,30 +13,30 @@ class AuthService extends ApiService {
 		})
 	}
 
-	init = async () => {
-		const token = await this.getToken()
-		const user = await this.getUser()
+	init = async (token?: string) => {
+		// const token = await this.getToken()
+		// const user = await this.getUser()
 
-		if (token != null && Boolean(user)) {
-			await this.setAuthorizationHeader()
-		}
+		await this.setAuthorizationHeader(token)
 		this.api.setUnauthorizedCallback(this.destroySession.bind(this))
 	}
 
 	/* Helper Functions */
-
-	/* 	login = async (loginData: LoginFormValues): Promise<AxiosResponse<LoginSuccessResponse | LoginFailureResponse>> =>
-      await this.apiClient
-        .post(`${API_VERSION.ONE}${API_ENDPOINTS.LoginWithEmail}`, loginData)
-        .then(async (res) => {
-          await this.createSession({ userId: res.data.user.id, token: res.data.token })
-          return res
-        })
-        .catch((error) => error.data) */
+	/* <LoginSuccessResponse | LoginFailureResponse>> */
+	login = async (loginData: Record<keyof ILoginData, string> | undefined): Promise<AxiosResponse> =>
+		await this.apiClient
+			.post(API_ENDPOINTS.LOGIN, loginData)
+			.then(
+				async (res) =>
+					// await this.createSession({ userId: res.data.user.id, token: res.data.token })
+					res
+			)
+			.catch((error) => error.data)
 
 	logout = async () => {
 		await this.destroySession()
-	} /*
+	}
+	/*
     currentUser = async () =>
       await this.apiClient
         .get(`${API_VERSION.ONE}${API_ENDPOINTS.CurrentUser}`)
@@ -81,18 +84,18 @@ class AuthService extends ApiService {
 
 	/* API Handlers */
 
-	private readonly getToken = async (): Promise<string | undefined> => {
-		const user = sessionStorage.getItem(SESSION_STORAGE_KEYS.USER_TOKEN)
-		return user != null ? JSON.parse(user).token : undefined
-	}
+	/* 	private readonly getToken = async (): Promise<string | null> => {
+      const user = sessionStorage.getItem(SESSION_STORAGE_KEYS.USER_TOKEN)
+      return !(user == null) ? JSON.parse(user).token : null
+    }
+  
+    private readonly getUser = async () => {
+      const user = sessionStorage.getItem(SESSION_STORAGE_KEYS.USER_TOKEN)
+      return user != null && JSON.parse(user)
+    } */
 
-	private readonly getUser = async () => {
-		const user = sessionStorage.getItem(SESSION_STORAGE_KEYS.USER_TOKEN)
-		return user != null && JSON.parse(user)
-	}
-
-	private readonly setAuthorizationHeader = async () => {
-		const token = await this.getToken()
+	private readonly setAuthorizationHeader = async (token?: string) => {
+		// const token = await this.getToken()
 		if (token != null) {
 			this.api.attachHeaders({
 				Authorization: `Bearer ${token}`,
@@ -100,14 +103,15 @@ class AuthService extends ApiService {
 		}
 	}
 
-	private readonly createSession = async (user: any) => {
-		sessionStorage.setItem(SESSION_STORAGE_KEYS.USER_TOKEN, JSON.stringify(user))
-		await this.setAuthorizationHeader()
-	}
+	/* 	private readonly createSession = async (user: any) => {
+      sessionStorage.setItem(SESSION_STORAGE_KEYS.USER_TOKEN, JSON.stringify(user))
+      await this.setAuthorizationHeader()
+    } */
 
 	private readonly destroySession = async () => {
 		console.log('[[AuthService]] Session Data Destroyed')
-		sessionStorage.getItem(SESSION_STORAGE_KEYS.USER_TOKEN)
+		// sessionStorage.getItem(SESSION_STORAGE_KEYS.USER_TOKEN)
+		await signOut()
 		this.api.removeHeaders(['Authorization'])
 	}
 

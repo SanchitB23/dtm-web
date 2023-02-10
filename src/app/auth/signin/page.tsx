@@ -41,7 +41,7 @@ export default function SignIn() {
 					</FormControl>
 					<Stack spacing={10}>
 						<Stack direction={{ base: 'column', sm: 'row' }} align={'start'} justify={'space-between'}>
-							<Checkbox>Remember me</Checkbox>
+							<Checkbox visibility={'hidden'}>Remember me</Checkbox>
 							<Link color={'blue.400'}>Forgot password?</Link>
 						</Stack>
 						<Button
@@ -49,6 +49,9 @@ export default function SignIn() {
 							color={'white'}
 							_hover={{
 								bg: 'blue.500',
+							}}
+							onClick={() => {
+								void signIn('credentials')
 							}}
 						>
 							Sign in
@@ -63,19 +66,21 @@ export default function SignIn() {
 						</Link>
 					</Text>
 				</Center>
-				<Divider my={4} />
-				<Button
-					w={'full'}
-					variant={'outline'}
-					leftIcon={<FcGoogle />}
-					onClick={() => {
-						void signIn('google', { callbackUrl: callbackUrl ?? 'http://localhost:3000/' })
-					}}
-				>
-					<Center>
-						<Text>Sign in with Google</Text>
-					</Center>
-				</Button>
+				<Box display={'none'}>
+					<Divider my={4} />
+					<Button
+						w={'full'}
+						variant={'outline'}
+						leftIcon={<FcGoogle />}
+						onClick={() => {
+							void signIn('google', { callbackUrl: callbackUrl ?? 'http://localhost:3000/' })
+						}}
+					>
+						<Center>
+							<Text>Sign in with Google</Text>
+						</Center>
+					</Button>
+				</Box>
 			</Box>
 		</Stack>
 	)
