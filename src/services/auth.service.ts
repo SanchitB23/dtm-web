@@ -88,7 +88,7 @@ class AuthService extends ApiService {
       const user = sessionStorage.getItem(SESSION_STORAGE_KEYS.USER_TOKEN)
       return !(user == null) ? JSON.parse(user).token : null
     }
-  
+
     private readonly getUser = async () => {
       const user = sessionStorage.getItem(SESSION_STORAGE_KEYS.USER_TOKEN)
       return user != null && JSON.parse(user)
