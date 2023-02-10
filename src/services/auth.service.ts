@@ -24,14 +24,12 @@ class AuthService extends ApiService {
 	/* Helper Functions */
 	/* <LoginSuccessResponse | LoginFailureResponse>> */
 	login = async (loginData: Record<keyof ILoginData, string> | undefined): Promise<AxiosResponse> =>
-		await this.apiClient
-			.post(API_ENDPOINTS.LOGIN, loginData)
-			.then(
-				async (res) =>
-					// await this.createSession({ userId: res.data.user.id, token: res.data.token })
-					res
-			)
-			.catch((error) => error.data)
+		await this.apiClient.post(API_ENDPOINTS.LOGIN, loginData).then(
+			async (res) =>
+				// await this.createSession({ userId: res.data.user.id, token: res.data.token })
+				// todo add header with token
+				res
+		)
 
 	logout = async () => {
 		await this.destroySession()

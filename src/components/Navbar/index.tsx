@@ -25,7 +25,7 @@ import {
 	useDisclosure,
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import Logo from '@/components/common/Logo'
 
 export default function WithSubNavigation(): JSX.Element {
@@ -99,9 +99,8 @@ export default function WithSubNavigation(): JSX.Element {
 							_hover={{
 								bg: 'pink.300',
 							}}
-							onClick={() => {
-								void signIn()
-							}}
+							as={NextLink}
+							href={'/auth/signin'}
 						>
 							Member Login
 						</Button>

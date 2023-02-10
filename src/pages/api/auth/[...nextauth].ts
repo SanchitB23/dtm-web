@@ -46,12 +46,6 @@ export default async function auth(req, res) {
 			strategy: 'jwt',
 		},
 		callbacks: {
-			async signIn() {
-				return true
-			},
-			async redirect({ baseUrl }) {
-				return baseUrl
-			},
 			async session({ session, token }) {
 				session.accessToken = token.accessToken
 				return session
