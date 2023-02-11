@@ -4,6 +4,7 @@ import {
 	Box,
 	Button,
 	FormControl,
+	FormErrorMessage,
 	FormLabel,
 	Heading,
 	HStack,
@@ -14,13 +15,28 @@ import {
 	Text,
 	useColorModeValue,
 } from '@chakra-ui/react'
+import { DevTool } from '@hookform/devtools'
+import { zodResolver } from '@hookform/resolvers/zod'
 import NextLink from 'next/link'
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import type { ISignupData } from '@/types/auth'
+import { signupSchema } from '@/types/auth'
 
 export default function SignupCard() {
 	const [showPassword, setShowPassword] = useState(false)
 	const [showCPassword, setShowCPassword] = useState(false)
-
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+		control,
+	} = useForm<ISignupData>({
+		resolver: zodResolver(signupSchema),
+	})
+	const onSubmit = (val) => {
+		console.log(val)
+	}
 	return (
 		<Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
 			<Stack align={'center'}>
@@ -33,26 +49,37 @@ export default function SignupCard() {
 				<Stack spacing={4}>
 					<HStack>
 						<Box>
-							<FormControl id='firstName' isRequired>
+							<FormControl id='firstName' isRequired isInvalid={!(errors.firstName == null)}>
 								<FormLabel>First Name</FormLabel>
-								<Input type='text' />
+								<Input type='text' {...register('firstName')} />
+								<FormErrorMessage>{errors?.firstName?.message}</FormErrorMessage>
 							</FormControl>
 						</Box>
 						<Box>
 							<FormControl id='lastName'>
 								<FormLabel>Last Name</FormLabel>
-								<Input type='text' />
+								<Input type='text' {...register('lastName')} />
 							</FormControl>
 						</Box>
 					</HStack>
-					<FormControl id='email' isRequired>
+					<FormControl id='email' isRequired isInvalid={!(errors.email == null)}>
 						<FormLabel>Email address</FormLabel>
-						<Input type='email' />
+						<Input type='email' {...register('email')} />
+						<FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
 					</FormControl>
-					<FormControl id='password' isRequired>
+					<FormControl id='password' isRequired isInvalid={!(errors.password == null)}>
 						<FormLabel>Password</FormLabel>
 						<InputGroup>
-							<Input type={showPassword ? 'text' : 'password'} />
+							<Input
+								type={showPassword ? 'text' : 'password'}
+								{...register('password')}
+								onCopy={(e) => {
+									e.preventDefault()
+								}}
+								onPaste={(event) => {
+									event.preventDefault()
+								}}
+							/>
 							<InputRightElement h={'full'}>
 								<Button
 									variant={'ghost'}
@@ -64,11 +91,21 @@ export default function SignupCard() {
 								</Button>
 							</InputRightElement>
 						</InputGroup>
+						<FormErrorMessage>{errors?.password?.message}</FormErrorMessage>
 					</FormControl>{' '}
-					<FormControl id='confirmPassword' isRequired>
+					<FormControl id='confirmPassword' isRequired isInvalid={!(errors.confirmPassword == null)}>
 						<FormLabel>Confirm Password</FormLabel>
 						<InputGroup>
-							<Input type={showCPassword ? 'text' : 'password'} />
+							<Input
+								type={showCPassword ? 'text' : 'password'}
+								{...register('confirmPassword')}
+								onCopy={(e) => {
+									e.preventDefault()
+								}}
+								onPaste={(event) => {
+									event.preventDefault()
+								}}
+							/>
 							<InputRightElement h={'full'}>
 								<Button
 									variant={'ghost'}
@@ -80,10 +117,12 @@ export default function SignupCard() {
 								</Button>
 							</InputRightElement>
 						</InputGroup>
+						<FormErrorMessage>{errors?.confirmPassword?.message}</FormErrorMessage>
 					</FormControl>
-					<FormControl id='memberId' isRequired>
+					<FormControl id='memberID' isRequired isInvalid={!(errors.memberID == null)}>
 						<FormLabel>Toastmasters Member ID</FormLabel>
-						<Input type='email' />
+						<Input type='text' {...register('memberID')} />
+						<FormErrorMessage>{errors?.memberID?.message}</FormErrorMessage>
 					</FormControl>
 					<Stack spacing={10} pt={2}>
 						<Button
@@ -94,6 +133,8 @@ export default function SignupCard() {
 							_hover={{
 								bg: 'blue.500',
 							}}
+							onClick={handleSubmit(onSubmit)}
+							// isLoading={isLoading}
 						>
 							Sign up
 						</Button>
@@ -108,6 +149,7 @@ export default function SignupCard() {
 					</Stack>
 				</Stack>
 			</Box>
+			<DevTool control={control} />
 		</Stack>
 	)
 }

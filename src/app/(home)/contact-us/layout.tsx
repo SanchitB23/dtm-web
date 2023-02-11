@@ -26,8 +26,9 @@ const Layout = ({ children }) => (
 			backgroundAttachment: 'fixed',
 		}}
 		id='contact'
+		h={'100%'}
 	>
-		<Box borderRadius='lg' m={{ base: 5, md: 16, lg: 10 }} p={{ base: 1, lg: 16 }} w={[null, null, null, '50%']}>
+		<Box borderRadius='lg' m={{ base: 5, md: 16, lg: 10 }} p={{ base: 1, lg: 3 }} w={[null, null, null, '40%']}>
 			<Box
 				bg={useColorModeValue('#9DC4FB', '#02054B')}
 				borderRadius='lg'
