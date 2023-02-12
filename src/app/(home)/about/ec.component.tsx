@@ -47,7 +47,7 @@ const TestimonialText = ({ children }: { children: ReactNode }) => (
 
 const TestimonialAvatar = ({ src, name, title }: { src: string; name: string; title: string }) => (
 	<Flex align={'center'} mt={8} direction={'column'}>
-		<Avatar src={src} alt={name} mb={2} />
+		<Avatar src={src} mb={2} />
 		<Stack spacing={-1} align={'center'}>
 			<Text fontWeight={600}>{name}</Text>
 			<Text fontSize={'sm'} color={useColorModeValue('gray.600', 'gray.400')}>
@@ -62,7 +62,7 @@ export default function AboutEcMembers() {
 		<Box>
 			<Container maxW={'7xl'} py={16} as={Stack} spacing={12}>
 				<Stack spacing={0} align={'center'}>
-					<Heading>Our Clients Speak</Heading>
+					<Heading>Our EC Members</Heading>
 					<Text>We have been working with clients around the world</Text>
 				</Stack>
 				<Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 10, md: 4, lg: 10 }}>

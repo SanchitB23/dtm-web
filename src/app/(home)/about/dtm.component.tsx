@@ -1,5 +1,5 @@
 'use client'
-import { Box, Container, Flex, Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react'
+import { Box, Container, Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import type { ReactNode } from 'react'
 
 export default function AboutDtm() {
@@ -40,7 +40,6 @@ export default function AboutDtm() {
 						))}
 					</SimpleGrid>
 				</Stack>
-				<Flex flex={1} />
 			</Stack>
 		</Container>
 	)
