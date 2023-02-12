@@ -1,5 +1,6 @@
 'use client'
 import { Button, Flex, Stack, Text, useBreakpointValue, VStack } from '@chakra-ui/react'
+import NextLink from 'next/link'
 
 const HeroComponent = () => (
 	<Flex
@@ -30,7 +31,14 @@ const HeroComponent = () => (
 					<Button bg={'blue.400'} rounded={'full'} color={'white'} _hover={{ bg: 'blue.500' }}>
 						Show me more
 					</Button>
-					<Button bg={'whiteAlpha.300'} rounded={'full'} color={'white'} _hover={{ bg: 'whiteAlpha.500' }}>
+					<Button
+						bg={'whiteAlpha.300'}
+						rounded={'full'}
+						color={'white'}
+						_hover={{ bg: 'whiteAlpha.500' }}
+						as={NextLink}
+						href={'/TestPage'}
+					>
 						Show me more
 					</Button>
 				</Stack>

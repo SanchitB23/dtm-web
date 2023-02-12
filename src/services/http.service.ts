@@ -44,7 +44,7 @@ class HttpService {
 }
 
 const options: AxiosRequestConfig = {
-	baseURL: process.env.API_URL ?? API_ENDPOINTS.BASE_URL,
+	baseURL: process.env.API_BASE_URL ?? API_ENDPOINTS.BASE_URL,
 	timeout: 5000,
 }
 const httpService = new HttpService(options)

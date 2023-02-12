@@ -32,7 +32,8 @@
 			"@/utils/*": ["./src/utils/*"],
 			"@/assets/*": ["./src/assets/*"],
 			"@/providers/*": ["./src/providers/*"],
-			"@/lib/*": ["./src/lib/*"]
+			"@/lib/*": ["./src/lib/*"],
+			"@/types/*": ["./src/types/*"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "next.config.js"],
