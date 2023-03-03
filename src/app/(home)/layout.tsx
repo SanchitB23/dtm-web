@@ -1,5 +1,5 @@
 'use client'
-import { Box, Flex } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import React from 'react'
 import Footer from '@/components/Footer'
 import NavBar from '@/components/Navbar'
@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
 		<Flex minH={'100vh'} direction={'column'}>
 			<NavBar />
-			<Box
+			<Flex
 				as={'main'}
 				flex={1}
 				sx={{
@@ -23,7 +23,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 				}}
 			>
 				{children}
-			</Box>
+			</Flex>
 			<Footer />
 		</Flex>
 	)
