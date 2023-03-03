@@ -28,14 +28,15 @@ import NextLink from 'next/link'
 import { signOut, useSession } from 'next-auth/react'
 import Logo from '@/components/common/Logo'
 
-export default function WithSubNavigation(): JSX.Element {
+export default function WithSubNavigation({ isAuth = false }: { isAuth?: boolean }): JSX.Element {
 	const { isOpen, onToggle } = useDisclosure()
 	const { colorMode, toggleColorMode } = useColorMode()
 	const { status } = useSession()
+	const authBg = useColorModeValue('gray.100', 'gray.900')
 	return (
 		<Box>
 			<Flex
-				bg='transparent'
+				bg={isAuth ? authBg : 'transparent'}
 				minH={'8vh'}
 				py={{ base: 2 }}
 				px={{ base: 4 }}
@@ -54,57 +55,60 @@ export default function WithSubNavigation(): JSX.Element {
 				</Flex>
 				<Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
 					<Logo />
-					<Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-						<DesktopNav />
-					</Flex>
+					{!isAuth && (
+						<Flex display={{ base: 'none', md: 'flex' }} ml={10}>
+							<DesktopNav />
+						</Flex>
+					)}
 				</Flex>
 
 				<Stack flex={{ base: 1, md: 0 }} justify={'flex-end'} direction={'row'} spacing={6}>
 					<Button onClick={toggleColorMode}>{colorMode === 'light' ? <MoonIcon /> : <SunIcon />}</Button>
 
-					{status === 'authenticated' ? (
-						<Menu>
-							<MenuButton as={Button} rounded={'full'} variant={'link'} cursor={'pointer'} minW={0}>
-								<Avatar size={'sm'} src={'https://avatars.dicebear.com/api/male/username.svg'} />
-							</MenuButton>
-							<MenuList alignItems={'center'}>
-								<br />
-								<Center>
-									<Avatar size={'2xl'} src={'https://avatars.dicebear.com/api/male/username.svg'} />
-								</Center>
-								<br />
-								<Center>
-									<p>Username</p>
-								</Center>
-								<br />
-								<MenuDivider />
-								<MenuItem>Your Servers</MenuItem>
-								<MenuItem>Account Settings</MenuItem>
-								<MenuItem
-									onClick={() => {
-										void signOut()
-									}}
-								>
-									Logout
-								</MenuItem>
-							</MenuList>
-						</Menu>
-					) : (
-						<Button
-							display={{ base: 'none', md: 'inline-flex' }}
-							fontSize={'sm'}
-							fontWeight={600}
-							color={'white'}
-							bg={'pink.400'}
-							_hover={{
-								bg: 'pink.300',
-							}}
-							as={NextLink}
-							href={'/auth/signin'}
-						>
-							Member Login
-						</Button>
-					)}
+					{!isAuth &&
+						(status === 'authenticated' ? (
+							<Menu>
+								<MenuButton as={Button} rounded={'full'} variant={'link'} cursor={'pointer'} minW={0}>
+									<Avatar size={'sm'} src={'https://avatars.dicebear.com/api/male/username.svg'} />
+								</MenuButton>
+								<MenuList alignItems={'center'}>
+									<br />
+									<Center>
+										<Avatar size={'2xl'} src={'https://avatars.dicebear.com/api/male/username.svg'} />
+									</Center>
+									<br />
+									<Center>
+										<p>Username</p>
+									</Center>
+									<br />
+									<MenuDivider />
+									<MenuItem>Your Servers</MenuItem>
+									<MenuItem>Account Settings</MenuItem>
+									<MenuItem
+										onClick={function () {
+											void signOut()
+										}}
+									>
+										Logout
+									</MenuItem>
+								</MenuList>
+							</Menu>
+						) : (
+							<Button
+								display={{ base: 'none', md: 'inline-flex' }}
+								fontSize={'sm'}
+								fontWeight={600}
+								color={'white'}
+								bg={'pink.400'}
+								_hover={{
+									bg: 'pink.300',
+								}}
+								as={NextLink}
+								href={'/auth/signin'}
+							>
+								Member Login
+							</Button>
+						))}
 				</Stack>
 			</Flex>
 
