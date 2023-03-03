@@ -4,7 +4,7 @@ import React from 'react'
 import Footer from '@/components/Footer'
 import NavBar from '@/components/Navbar'
 
-function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
+export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
 		<Flex minH={'100vh'} direction={'column'}>
 			<NavBar />
@@ -28,5 +28,3 @@ function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
 		</Flex>
 	)
 }
-
-export default RootLayout
