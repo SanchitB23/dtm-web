@@ -10,7 +10,8 @@
 		"standard-with-typescript",
 		"prettier",
 		"plugin:@next/next/recommended",
-		"next"
+		"next",
+		"plugin:@tanstack/eslint-plugin-query/recommended"
 	],
 	"parser": "@typescript-eslint/parser",
 	"overrides": [],
@@ -24,7 +25,9 @@
 	},
 	"plugins": ["react", "react-hooks", "@typescript-eslint", "prettier", "autofix", "unused-imports"],
 	"rules": {
+		"@typescript-eslint/no-misused-promises": 1,
 		"@typescript-eslint/explicit-function-return-type": 0,
+		"@typescript-eslint/no-dynamic-delete": "warn",
 		"react/jsx-filename-extension": [
 			"error",
 			{

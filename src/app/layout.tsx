@@ -1,19 +1,13 @@
-'use client'
+import { RootMetadata } from '@/config/metadata'
 import PageProvider from '@/providers/PageProvider'
 
-function RootLayout({ children }) {
+export default function RootLayout({ children }) {
 	return (
 		<html lang='en'>
-			{/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
-			<head />
 			<body>
 				<PageProvider>{children}</PageProvider>
 			</body>
 		</html>
 	)
 }
-
-export default RootLayout
+export const metadata = RootMetadata

@@ -1,23 +1,30 @@
 'use client'
+import { Flex } from '@chakra-ui/react'
 import React from 'react'
 import Footer from '@/components/Footer'
 import NavBar from '@/components/Navbar'
 
-function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
+export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang='en'>
-			{/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
-			<head />
-			<body>
-				<NavBar />
+		<Flex minH={'100vh'} direction={'column'}>
+			<NavBar />
+			<Flex
+				as={'main'}
+				flex={1}
+				sx={{
+					'&::-webkit-scrollbar': {
+						width: '16px',
+						borderRadius: '8px',
+						backgroundColor: 'rgba(0, 0, 0, 0.05)',
+					},
+					'&::-webkit-scrollbar-thumb': {
+						backgroundColor: 'rgba(0, 0, 0, 0.05)',
+					},
+				}}
+			>
 				{children}
-				<Footer />
-			</body>
-		</html>
+			</Flex>
+			<Footer />
+		</Flex>
 	)
 }
-
-export default RootLayout
