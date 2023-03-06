@@ -2,11 +2,11 @@ import axios from 'axios'
 import { API_ENDPOINTS } from '@/constants'
 import type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios'
 
-class HttpService {
+export class HttpService {
 	client: AxiosInstance
 	unauthorizedCallback: () => void
 
-	constructor(options = {}) {
+	constructor(options: AxiosRequestConfig = {}) {
 		this.client = axios.create(options)
 		this.client.interceptors.response.use(this.handleSuccessResponse, this.handleErrorResponse)
 		this.unauthorizedCallback = () => undefined
@@ -28,12 +28,8 @@ class HttpService {
 
 	handleErrorResponse = async (error) => {
 		const { status } = error as AxiosError
-		switch (status) {
-			case 401:
-				this.unauthorizedCallback()
-				break
-			default:
-				break
+		if (status === 401) {
+			this.unauthorizedCallback()
 		}
 		throw error
 	}
@@ -43,10 +39,9 @@ class HttpService {
 	}
 }
 
-const options: AxiosRequestConfig = {
+const httpService = new HttpService({
 	baseURL: process.env.API_BASE_URL ?? API_ENDPOINTS.BASE_URL,
 	timeout: 5000,
-}
-const httpService = new HttpService(options)
+})
 
 export default httpService
