@@ -40,8 +40,8 @@ export default function Footer() {
 					<Link as={NextLink} href={'/about'}>
 						About
 					</Link>
-					<Link as={NextLink} href={'#'}>
-						Blog
+					<Link as={NextLink} href={'/faq'}>
+						FAQ
 					</Link>
 					<Link as={NextLink} href={'/contact-us'}>
 						Contact
