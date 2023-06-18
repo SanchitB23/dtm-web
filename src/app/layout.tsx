@@ -1,14 +1,7 @@
 import { RootMetadata } from '@/config/metadata'
 import PageProvider from '@/providers/PageProvider'
-import '@/styles/globals.css'
 
 export default function RootLayout({ children }) {
-	return (
-		<html lang='en' className={'dark'}>
-			<body>
-				<PageProvider>{children}</PageProvider>
-			</body>
-		</html>
-	)
+	return <PageProvider>{children}</PageProvider>
 }
 export const metadata = RootMetadata

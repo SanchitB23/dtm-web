@@ -3,36 +3,83 @@ import { Collapse } from 'flowbite'
 import NextLink from 'next/link'
 import React, { useEffect, useRef } from 'react'
 import Logo from '@/components/common/Logo'
+import { useTheme } from '@/hooks/useTheme'
 
 function NavbarTw() {
 	const hamburgerRef = useRef()
 	const navRef = useRef()
+	const { isDarkMode, toggleTheme } = useTheme()
+
 	useEffect(() => {
 		// eslint-disable-next-line no-new
 		new Collapse(navRef.current, hamburgerRef.current)
 	}, [])
+
 	return (
 		<nav className='bg-white border-gray-200 dark:bg-gray-900'>
 			<div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4'>
 				<NextLink href='/' className='flex items-center'>
 					<Logo />
 				</NextLink>
-				<div className='flex md:order-2 gap-2'>
-					<button type='button' className='text-white bg-gray-700 '>
-						Theme
-					</button>
+
+				<div className='flex md:order-2 gap-2 '>
 					<button
-						type='button'
+						className='text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 mr-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700'
+						onClick={toggleTheme}
+					>
+						{isDarkMode ? (
+							<svg
+								xmlns='http://www.w3.org/2000/svg'
+								width='24'
+								height='24'
+								viewBox='0 0 24 24'
+								fill='none'
+								stroke='currentColor'
+								strokeWidth='2'
+								strokeLinecap='round'
+								strokeLinejoin='round'
+								className='lucide lucide-sun'
+							>
+								<circle cx='12' cy='12' r='4' />
+								<path d='M12 2v2' />
+								<path d='M12 20v2' />
+								<path d='m4.93 4.93 1.41 1.41' />
+								<path d='m17.66 17.66 1.41 1.41' />
+								<path d='M2 12h2' />
+								<path d='M20 12h2' />
+								<path d='m6.34 17.66-1.41 1.41' />
+								<path d='m19.07 4.93-1.41 1.41' />
+							</svg>
+						) : (
+							<svg
+								xmlns='http://www.w3.org/2000/svg'
+								width='24'
+								height='24'
+								viewBox='0 0 24 24'
+								fill='none'
+								stroke='currentColor'
+								strokeWidth='2'
+								strokeLinecap='round'
+								strokeLinejoin='round'
+								className='lucide lucide-moon'
+							>
+								<path d='M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z' />
+							</svg>
+						)}
+					</button>
+					<NextLink
 						className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+						href={'/auth/signin'}
 					>
 						Member Login
-					</button>
+					</NextLink>
 					<button
 						data-collapse-toggle='navbar-cta'
 						type='button'
 						className='inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600'
 						aria-controls='navbar-cta'
 						aria-expanded='false'
+						ref={hamburgerRef.current}
 					>
 						<span className='sr-only'>Open main menu</span>
 						<svg
@@ -50,7 +97,11 @@ function NavbarTw() {
 						</svg>
 					</button>
 				</div>
-				<div className='items-center justify-between hidden w-full md:flex md:w-auto md:order-1' id='navbar-cta'>
+				<div
+					className='items-center justify-between hidden w-full md:flex md:w-auto md:order-1'
+					id='navbar-cta'
+					ref={navRef.current}
+				>
 					<ul className='flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700'>
 						<li>
 							<a
@@ -79,7 +130,7 @@ function NavbarTw() {
 						</li>
 						<li>
 							<a
-								href='#'
+								href='/contact-us'
 								className='block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'
 							>
 								Contact
