@@ -1,5 +1,6 @@
 import { RootMetadata } from '@/config/metadata'
 import PageProvider from '@/providers/PageProvider'
+import '@/styles/globals.css'
 
 export default function RootLayout({ children }) {
 	return (
