@@ -1,8 +1,8 @@
 'use client'
 import { Box, Flex, useColorModeValue } from '@chakra-ui/react'
 import React from 'react'
-import Footer from '@/components/Footer'
-import NavBar from '@/components/Navbar'
+import FooterTw from '@/components/FooterTw'
+import NavbarTw from '@/components/NavbarTw'
 
 const LayoutComponent = ({ children }) => (
 	<Box
@@ -18,11 +18,11 @@ const LayoutComponent = ({ children }) => (
 		display={'flex'}
 		flexDir={'column'}
 	>
-		<NavBar isAuth />
+		<NavbarTw />
 		<Flex align={'center'} justify={'center'} flex={1}>
 			{children}
 		</Flex>
-		<Footer />
+		<FooterTw />
 	</Box>
 )
 
