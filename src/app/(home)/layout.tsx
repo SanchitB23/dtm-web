@@ -2,12 +2,12 @@
 import { Flex } from '@chakra-ui/react'
 import React from 'react'
 import Footer from '@/components/Footer'
-import NavBar from '@/components/Navbar'
+import NavbarTw from '@/components/NavbarTw'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
 		<Flex minH={'100vh'} direction={'column'}>
-			<NavBar />
+			<NavbarTw />
 			<Flex
 				as={'main'}
 				flex={1}
