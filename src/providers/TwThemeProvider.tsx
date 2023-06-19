@@ -21,7 +21,6 @@ const TwThemeProvider: React.FC<{ children: JSX.Element }> = ({ children }) => {
 		}),
 		[isDarkMode]
 	)
-	console.log('theme', isDarkMode)
 	return (
 		<ThemeContext.Provider value={themeContextValue}>
 			<html lang='en' className={isDarkMode ? 'dark' : ''}>

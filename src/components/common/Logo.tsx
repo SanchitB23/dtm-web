@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import { cn } from '@/utils/twClassName'
+import { cn } from '@/lib/twClassName'
 import type { ImageProps as NextImgProps } from 'next/image'
 
 export default function Logo({ className, ...props }: Partial<NextImgProps>): JSX.Element {
