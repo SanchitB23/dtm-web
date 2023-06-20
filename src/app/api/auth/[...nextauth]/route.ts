@@ -21,7 +21,7 @@ const handler = NextAuth({
 				email: { label: 'Username', type: 'text', placeholder: 'jsmith' },
 				password: { label: 'Password', type: 'password' },
 			},
-			async authorize(credentials: Record<keyof ILoginData, string> | undefined): Promise<User | AxiosError> {
+			async authorize(credentials: Record<keyof ILoginData, string> | undefined): Promise<User | null> {
 				// You need to provide your own logic here that takes the credentials
 				// submitted and returns either an object representing a user or value
 				// that is false/null if the credentials are invalid.

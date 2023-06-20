@@ -1,5 +1,4 @@
 'use client'
-import React from 'react'
 import FooterTw from '@/components/FooterTw'
 import NavbarTw from '@/components/NavbarTw'
 import { useTheme } from '@/hooks/useTheme'
