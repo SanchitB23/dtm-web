@@ -34,9 +34,10 @@
 			"@/providers/*": ["./src/providers/*"],
 			"@/lib/*": ["./src/lib/*"],
 			"@/types/*": ["./src/types/*"],
-			"@/config/*": ["./src/config/*"]
+			"@/config/*": ["./src/config/*"],
+			"@/styles/*": ["./src/styles/*"]
 		}
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "next.config.js"],
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "next.config.js", "**/*.js"],
 	"exclude": ["node_modules"]
 }
