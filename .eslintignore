@@ -78,3 +78,5 @@ node_modules/
 # TernJS port file
 # Stores VSCode versions used for testing VSCode extensions
 # yarn v2
+
+tailwind.config.js
